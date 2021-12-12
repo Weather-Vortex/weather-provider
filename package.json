@@ -1,0 +1,41 @@
+{
+  "name": "weather-provider",
+  "version": "0.1.0",
+  "description": "Weather Provider package for Weather Vortex project",
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**.*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint && npm test",
+    "preversion": "npm run lint",
+    "test": "jest --config jestconfig.json",
+    "version": "npm run format && git add -A src"
+  },
+  "keywords": [
+    "weather",
+    "vortex",
+    "provider",
+    "forecast"
+  ],
+  "author": {
+    "email": "daniele.tentoni.1996@gmail.com",
+    "name": "Daniele Tentoni",
+    "url": "https://github.io/Daniele-Tentoni"
+  },
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.4",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.5.3"
+  }
+}
