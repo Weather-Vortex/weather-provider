@@ -28,7 +28,7 @@ describe('Test creating providers', () => {
     const constructor = providerConstructionByProtocol(fakeProtocol);
     test(`Fail creating a provider with '${fakeProtocol}', a fake protocols`, () => {
       if (runOnSpecificNodeVersion('14')) {
-        const host = fakeProtocol.concat('//', exampleHost)
+        const host = fakeProtocol.concat('//', exampleHost);
         expect(constructor).toThrow(TypeError(`Invalid URL: ${host}`));
       } else {
         expect(constructor).toThrow(TypeError('Invalid URL'));
@@ -48,16 +48,20 @@ describe('Test creating providers', () => {
 });
 
 describe('Test formatting urls', () => {
-  const provider = new WeatherProvider('http://example.com', exampleTokenKey, exampleTokenValue);
+  const provider = new WeatherProvider(
+    'http://example.com',
+    exampleTokenKey,
+    exampleTokenValue,
+  );
   const examplePaths = ['a', 'forecast', 'forecast/city'];
-  examplePaths.forEach(examplePath => {
+  examplePaths.forEach((examplePath) => {
     test(`Check right search params for example path ${examplePath}`, () => {
       const url = provider.formatUrl(examplePath);
       expect(url.searchParams).toBeInstanceOf(URLSearchParams);
       expect(url.searchParams.get(exampleTokenKey)).toBe(exampleTokenValue);
       const regex = RegExp(`^\/${examplePath}$`);
-      console.info("B", regex, regex.test(url.pathname));
+      console.info('B', regex, regex.test(url.pathname));
       expect(regex.test(url.pathname)).toBeTruthy();
     });
-  })
+  });
 });
