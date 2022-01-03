@@ -2,6 +2,11 @@ import { validProtocols, WeatherProvider } from '../index';
 
 const rightCreatedProviderName = 'Weather Provider';
 
+/**
+ * Check if you have installed a specific version of node.
+ * @param desiredVersion {string} given desired node version. You can use for example '14'. Doesn't support minor or patch at the moment.
+ * @returns {boolean} true if given node version is supported, false otherwise.
+ */
 const runOnSpecificNodeVersion: (desiredVersion: string) => boolean = (
   desiredVersion,
 ) => {
