@@ -2,6 +2,8 @@ import { validProtocols, WeatherProvider } from '../index';
 
 const rightCreatedProviderName = 'Weather Provider';
 const exampleHost = 'example.com';
+const exampleTokenKey = 'tok';
+const exampleTokenValue = 'val';
 
 /**
  * Check if you have installed a specific version of node.
@@ -17,10 +19,10 @@ const runOnSpecificNodeVersion: (desiredVersion: string) => boolean = (
 
 const providerConstructionByProtocol = (protocol: string) => {
   const url = protocol.concat('//', exampleHost);
-  return () => new WeatherProvider(url, 'tok', 'val');
+  return () => new WeatherProvider(url, exampleTokenKey, exampleTokenValue);
 };
 
-test('Test creating providers', () => {
+describe('Test creating providers', () => {
   const fakeProtocols = ['ftp', 'ssh'];
   fakeProtocols.forEach((fakeProtocol) => {
     const constructor = providerConstructionByProtocol(fakeProtocol);
@@ -38,6 +40,23 @@ test('Test creating providers', () => {
     test(`Create a provider with '${String(protocol)}' protocol`, () => {
       const provider = constructor();
       expect(provider.name).toBe(rightCreatedProviderName);
+      expect(provider.tokenKey).toBe(exampleTokenKey);
+      expect(provider.tokenValue).toBe(exampleTokenValue);
     });
   }
+});
+
+describe('Test formatting urls', () => {
+  const provider = new WeatherProvider('http://example.com', exampleTokenKey, exampleTokenValue);
+  const examplePaths = ['a', 'forecast', 'forecast/city'];
+  examplePaths.forEach(examplePath => {
+    test(`Check right search params for example path ${examplePath}`, () => {
+      const url = provider.formatUrl(examplePath);
+      expect(url.searchParams).toBeInstanceOf(URLSearchParams);
+      expect(url.searchParams.get(exampleTokenKey)).toBe(exampleTokenValue);
+      const regex = RegExp(`^\/${examplePath}$`);
+      console.info("B", regex, regex.test(url.pathname));
+      expect(regex.test(url.pathname)).toBeTruthy();
+    });
+  })
 });
