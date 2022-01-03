@@ -9,25 +9,24 @@
 /**
  * Curated list of valid protocols to use for common use in weather provider module.
  */
-const validProtocols = ['http', 'https'];
+export const validProtocols: Set<string> = new Set<string>(['http:', 'https:']);
 
 /**
  * Check if the URL is valid or not.
- * This is a list of valid protocols:
- * - http;
- * - https;
+ * For a curated list of supported protocols, see validProtocols const.
  * Any other protocol will be rejected at the moment with a TypeError.
  * @param {string | URL } urlString The url to check.
  * @returns {URL} The url checked.
  * @throws {TypeError} Submitted an url with an invalid protocol.
  */
-const validateUrl = (urlString: string | URL) => {
+const validateUrl = (urlString: string | URL): URL => {
   const myUrl: URL = new URL(urlString);
 
-  if (!validProtocols.includes(myUrl.protocol)) {
-    throw new TypeError('Invalid protocol');
+  if (!validProtocols.has(myUrl.protocol)) {
+    throw new TypeError(`Invalid protocol ${myUrl.protocol}`);
   }
 
+  // Here the URL is valid, return it.
   return myUrl;
 };
 
