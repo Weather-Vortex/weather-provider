@@ -28,7 +28,8 @@ describe('Test creating providers', () => {
     const constructor = providerConstructionByProtocol(fakeProtocol);
     test(`Fail creating a provider with '${fakeProtocol}', a fake protocols`, () => {
       if (runOnSpecificNodeVersion('14')) {
-        expect(constructor).toThrow(TypeError('Invalid URL: aaa'));
+        const host = fakeProtocol.concat('//', exampleHost)
+        expect(constructor).toThrow(TypeError(`Invalid URL: ${host}`));
       } else {
         expect(constructor).toThrow(TypeError('Invalid URL'));
       }
