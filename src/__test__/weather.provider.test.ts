@@ -1,4 +1,5 @@
-import { validProtocols, WeatherProvider } from '../index';
+import { validProtocols, WeatherForecast, WeatherProvider } from '../index';
+import * as nock from "nock";
 
 const rightCreatedProviderName = 'Weather Provider';
 const exampleHost = 'example.com';
@@ -63,5 +64,34 @@ describe('Test formatting urls', () => {
       console.info('B', regex, regex.test(url.pathname));
       expect(regex.test(url.pathname)).toBeTruthy();
     });
+  });
+});
+
+describe('Test receiving information', () => {
+  const exampleForecast = new WeatherForecast(
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    new Date(),
+    '1',
+    '1',
+  );
+  const exampleUrl = 'http://example.com';
+  const scope = nock(exampleUrl)
+    .get('/forecast/city')
+    .reply(200, exampleForecast);
+  const provider = new WeatherProvider(
+    exampleUrl,
+    exampleTokenKey,
+    exampleTokenValue,
+  );
+  test('Execute a request', () => {
+    const forecastReceived = provider.makeRequest('forecast/city');
+    expect(forecastReceived.clouds).toBe(exampleForecast.clouds);
   });
 });
