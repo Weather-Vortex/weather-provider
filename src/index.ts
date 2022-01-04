@@ -12,6 +12,63 @@
 export const validProtocols: Set<string> = new Set<string>(['http:', 'https:']);
 
 /**
+ * Weather Forecast Class returned by providers.
+ */
+export class WeatherForecast {
+  readonly clouds: number;
+  readonly rain: number;
+  readonly snow: number;
+  readonly temperature: number;
+  readonly minimumTemperature: number;
+  readonly maximumTemperature: number;
+  readonly pressure: number;
+  readonly humidity: number;
+  readonly time: Date;
+  readonly weatherIcon: string;
+  readonly weatherDescription: string;
+
+  /**
+   * Creates a new forecast object. It's immutable.
+   * @param clouds Clouds level; higher values means more clouds.
+   * @param rain Rain level; higher values means more intensity.
+   * @param snow Snow level; higher values means higher intensity.
+   * @param temperature Temperature value.
+   * @param minimumTemperature Minimum temperature.
+   * @param maximumTemperature Maximum temperature.
+   * @param pressure Pressure value.
+   * @param humidity Humidity percentage.
+   * @param time Time of the forecast.
+   * @param weatherIcon Weather Icon String.
+   * @param weatherDescription Weather Icon Description.
+   */
+  constructor(
+    clouds: number,
+    rain: number,
+    snow: number,
+    temperature: number,
+    minimumTemperature: number,
+    maximumTemperature: number,
+    pressure: number,
+    humidity: number,
+    time: Date,
+    weatherIcon: string,
+    weatherDescription: string,
+  ) {
+    this.clouds = clouds;
+    this.rain = rain;
+    this.snow = snow;
+    this.temperature = temperature;
+    this.minimumTemperature = minimumTemperature;
+    this.maximumTemperature = maximumTemperature;
+    this.pressure = pressure;
+    this.humidity = humidity;
+    this.time = time;
+    this.weatherIcon = weatherIcon;
+    this.weatherDescription = weatherDescription;
+  }
+}
+
+/**
  * Check if the URL is valid or not.
  * For a curated list of supported protocols, see validProtocols const.
  * Any other protocol will be rejected at the moment with a TypeError.
@@ -51,6 +108,7 @@ export class WeatherProvider {
 
   makeRequest = (resource: string) => {
     const dataUrl = this.formatUrl(resource);
-    return dataUrl;
+    console.log(dataUrl);
+    return new WeatherForecast(1, 1, 1, 1, 1, 1, 1, 1, new Date(), '1', '1');
   };
 }
