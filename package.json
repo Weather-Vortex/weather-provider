@@ -42,7 +42,7 @@
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-unicorn": "40.0.0",
-    "jest": "27.4.6",
+    "jest": "27.4.7",
     "nock": "13.2.1",
     "prettier": "2.5.1",
     "ts-jest": "27.1.2",
