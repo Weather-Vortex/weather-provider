@@ -43,7 +43,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-unicorn": "42.0.0",
     "jest": "28.1.0",
-    "nock": "13.2.4",
+    "nock": "13.2.6",
     "prettier": "2.6.2",
     "ts-jest": "28.0.4",
     "tslint-config-prettier": "1.18.0",
